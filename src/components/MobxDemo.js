@@ -1,31 +1,31 @@
 /**
+ * Created by caowencheng on 2018/2/1.
+ */
+
+"use strict";
+
+/**
  * Created by caowencheng on 2018/1/26.
  */
 
 import React from 'react';
-import { connect } from 'react-redux';
+import { observer } from 'mobx-react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 
 import Base from '../Base';
-import { addCount } from '../ations/addCount';
 
-class CountDemo extends Base {
+// 观察者
+@observer
+class MobxDemo extends Base {
 	render() {
-		const { count, addCount } = this.props;
+		const { store } = this.props;
 
 		return (
 			<View style={styles.container}>
-				<Text style={styles.text}>{ count }</Text>
-				<Button onPress={ addCount } title={"增加"} style={styles.button}/>
+				<Text style={styles.text}>{ store.todo.title }</Text>
+				<Button onPress={ () => { store.changeTodoTitle("哈哈哈")} } title={"修改"} style={styles.button}/>
 			</View>
 		);
-	}
-}
-
-// 接受行为
-function mapStateToProps(state) {
-	return {
-		count: state.addCount.count
 	}
 }
 
@@ -45,4 +45,4 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default connect(mapStateToProps, addCount)(CountDemo)
+export default MobxDemo;

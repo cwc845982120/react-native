@@ -6,9 +6,11 @@ import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { StackNavigator, NavigationActions } from 'react-navigation';
 
+import mobxStore from '../store/mobxStore';
 import PromiseRuleComponent from '../screens/PromiseRule';
 import CountDemo from '../components/CountDemo';
 import fetchDemo from '../components/fetchDemo';
+import MobxDemo from '../components/MobxDemo';
 
 const backAction = NavigationActions.back();
 
@@ -26,7 +28,15 @@ const DetailsScreen = ({ navigation }) =>
 		<Text style={ styles.buttonText } onPress={() => navigation.navigate('Demo')}>跳转至约课规则页</Text>
 		<Text style={ styles.buttonText } onPress={() => navigation.navigate('Demo2')}>reduxDemo2</Text>
 		<Text style={ styles.buttonText } onPress={() => navigation.navigate('Demo3')}>网络请求Demo3</Text>
+		<Text style={ styles.buttonText } onPress={() => navigation.navigate('Demo4')}>mobxDemo</Text>
 		<Text style={ styles.buttonText } onPress={() => navigation.dispatch(backAction) }>返回首页</Text>
+	</View>
+
+;
+
+const MobxDemoScreen = ({ navigation }) =>
+	<View style={ styles.container }>
+		<MobxDemo store={ mobxStore }/>
 	</View>
 
 ;
@@ -60,6 +70,12 @@ const RootNavigator = StackNavigator({
 		screen: fetchDemo,
 		navigationOptions: {
 			headerTitle: 'Demo3'
+		}
+	},
+	Demo4: {
+		screen: MobxDemoScreen,
+		navigationOptions: {
+			headerTitle: 'MobxDemo'
 		}
 	}
 });
